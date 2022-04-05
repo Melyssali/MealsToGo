@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Text, FlatList } from "react-native";
+import { Text, FlatList, View } from "react-native";
 import { Card } from 'react-native-paper';
 
 
@@ -10,15 +10,24 @@ const CardContainer = styled(Card)`
     background-color:${(props) => props.theme.colors.background.primary};
 `;
 const CardCover = styled(Card.Cover)`
-    
     background-color:${(props) => props.theme.colors.background.primary}
 `;
 
-const Title = styled(Text)`
+const Info = styled(View)`
     padding: ${(props) => props.theme.space[2]};
+`;
+
+const Title = styled(Text)`
+    font-family: ${(props) => props.theme.fonts.heading};
+    font-size: ${(props) => props.theme.fontSizes.title};
     color: ${(props) => props.theme.colors.ui.primary};
 `;
 
+const Address = styled(Text)`
+    font-family: ${(props) => props.theme.fonts.body};
+    font-size: ${(props) => props.theme.fontSizes.caption}
+    
+`;
 
 
 
@@ -41,7 +50,10 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         // <FlatList >
         <CardContainer elevation={5} >
             <CardCover key={name} source={{ uri: photos[0] }} />
-            <Title>{name}</Title>
+            <Info>
+                <Title>{name}</Title>
+                <Address>{address}</Address>
+            </Info>
         </CardContainer>
         // </FlatList>
     );
