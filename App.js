@@ -46,7 +46,7 @@ import { Ionicons } from "@expo/vector-icons";
 // But the best way to simplify it, is like this : 
 //set Icon Name
 const TAB_ICON = {
-  //route Name    icon Name 
+  //route Name   icon Name 
   Restaurants: "md-restaurant",
   Map: "md-map",
   Settings: "md-settings",
