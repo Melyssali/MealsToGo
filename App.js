@@ -12,6 +12,57 @@ import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurant
 import { Test } from "./src/features/restaurants/screens/test";
 import { Ionicons } from "@expo/vector-icons";
 
+
+
+// Nous parametrons nos icones en fonction du nom des "tab.screens"
+// we settings our icons according to the name of "tab screens"
+
+// We could do it like this :
+// let iconName;
+// switch (route.name) {
+//   case "Restaurants":
+
+//     (Si on changeait d'icone en fonction de l'onglet sur lequel nous sommes
+//     If we would change icon we are "focus" on:
+//     iconName = focused ? 'mdr-restaurant' : 'mdr-restaurant-outline';)
+
+//     iconName = 'mdr-restaurant';
+//     break;
+//   case "Map":
+
+//     (If we would change icon we are "focus" on:
+//     iconName = focused ? 'md-map' : 'md-map-outline');
+
+//     iconName = 'md-map';
+//     break;
+//   case "md-settings":
+
+//    ( If we would change icon we are "focus" on:
+//     iconName = focused ? 'md-settings' : 'md-settings-outline';)
+
+//     iconName = 'setting';
+//     break;
+// }
+// But the best way to simplify it, is like this : 
+//set Icon Name
+const TAB_ICON = {
+  //route Name    icon Name 
+  Restaurants: "md-restaurant",
+  Map: "md-map",
+  Settings: "md-settings",
+};
+
+const CreateScreenOptions = ({ route }) => {
+  const iconName = TAB_ICON[route.name];
+  return {
+    tabBarIcon: ({ size, color }) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    ),
+    // We hide Header
+    headerShown: false
+  }
+}
+
 export default function App() {
 
   let [oswaldLoaded] = useOswald({
@@ -27,43 +78,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        {/* <RestaurantsScreen /> */}
         <NavigationContainer>
           <Tab.Navigator
-            screenOptions={({ route }) => ({
-              headerShown: false,
-              // Nous parametrons nos icones en fonction du nom des "tab.screens"
-              // we settings our icons according to the name of "tab screens"
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
-                switch (route.name) {
-                  case "Restaurants":
-                    // Si on changeait d'icone en fonction de l'onglet sur lequel nous sommes
-                    // If we would change icon we are "focus" on:
-                    //iconName = focused ? 'ios-restaurant' : 'ios-restaurant-outline';
-                    iconName = 'ios-restaurant';
-                    break;
-                  case "Map":
-                    // If we would change icon we are "focus" on:
-                    //iconName = focused ? 'ios-map' : 'ios-map-outline';
-                    iconName = 'ios-map';
-                    break;
-                  case "Settings":
-                    // If we would change icon we are "focus" on:
-                    //iconName = focused ? 'settings' : 'settings-outline';
-                    iconName = 'settings';
-                    break;
-                }
-
-                // You can return any component that you like here!
-                return <Ionicons name={iconName} size={size} color={color} />;
-              },
-              tabBarActiveTintColor: 'cornflowerblue',
-              tabBarInactiveTintColor: 'gray',
-
-            })}
-            options={{}}
+            screenOptions={CreateScreenOptions}
+            tabBarOptions={{
+              activeTintColor: 'cornflowerblue',
+              inactiveTintColor: 'gray',
+            }}
           >
             <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
             <Tab.Screen name="Map" component={Test} />
